@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>掲示板トップページ</title>
+    </head>
+    <body>
+        <header>
+            <h1>
+                {% if login_user_name %}
+                掲示板トップページ - {{login_user_name}}さん
+                {% else %}
+                掲示板トップページ - ゲストさん
+                {% endif %}
+            </h1>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="{{url_for('index')}}">トップページ</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('write')}}">書き込みページ</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            {% for message in message_list %}
+            <article>
+                <p>{{message.id}} - {{message.user_name}}</p>
+                <p>{{message.contents}}</p>
+            </article>
+            {% endfor %}
+        </main>
+    </body>
+</html>
