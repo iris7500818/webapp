@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}
+            {% endblock %}
+        </title>
+    </head>
+
+    <body>
+        <header>
+            <h1>
+                {% block header %}
+                {% endblock %}
+            </h1>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="{{url_for('index')}}">トップページ</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('write')}}">書き込みページ</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            {% block contents %}
+            まだ何もコンテンツがありません。
+            {% endblock %}
+        </main>
+    </body>
+
+</html>
