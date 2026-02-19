@@ -48,6 +48,30 @@ def write():
         return redirect(url_for("index"))
 
 
+@app.route("/update/<int:message_id>", methods=["GET", "POST"])
+def update(message_id):
+    message = Message.query.get(message_id)
+
+    if request.method == "GET":
+        return render_template(
+            "update.html", login_user_name=login_user_name, message=message
+        )
+    elif request.method == "POST":
+        message.contents = request.form.get("contents")
+        db.session.commit()
+
+        return redirect(url_for("index"))
+
+
+@app.route("/delete/<int:message_id>")
+def delete(message_id):
+    message = Message.query.get(message_id)
+    db.session.delete(message)
+    db.session.commit()
+
+    return redirect(url_for("index"))
+
+
 with app.app_context():
     db.create_all()
 
