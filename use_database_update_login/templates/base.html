@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+    <header>
+        <h1>
+            {% block header %}
+            {% endblock %}
+        </h1>
+    <nav>
+            <ul>
+                <li>
+                    <a href="{{url_for('index')}}">トップページ</a>
+                </li>
+                {% if login_user_name %}
+                <li>
+                    <a href="{{url_for('write')}}">書き込みページ</a>
+                </li>
+                <li>
+                    <a href="{{url_for('logout')}}">ログアウト</a>
+                </li>
+                {% endif %}
+
+                {% if not login_user_name %}
+                <li>
+                    <a href="{{url_for('signup')}}">アカウント登録ページ</a>
+                </li>
+                <li>
+                    <a href="{{url_for('login')}}">ログインページ</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block contents %}
+        まだ何もコンテンツがありません。
+        {% endblock %}
+    </main>
+</body>
+
+</html>
