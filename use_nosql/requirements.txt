@@ -1,0 +1,6 @@
+flask==2.3.3
+sqlalchemy
+flask_login
+flask_socketio==5.3.6
+pymongo
+dotenv

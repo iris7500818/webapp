@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>リアルタイムチャット</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+                const socket = io();
+
+                const messageInput = document.getElementById("message-input");
+                const messageButton = document.getElementById("send-message");
+                const messagesList = document.getElementById("messages");
+
+                const appendMessage = message => {
+                    const li = document.createElement("li"); // 1. <li>要素をJavaScript上で作成
+                    li.textContent = message;                // 2. 要素のテキストとしてメッセージを設定（タグなどを無害化）
+                    messagesList.appendChild(li);
+                };
+
+                socket.on("connect", () => socket.emit("load messages"));
+
+                socket.on("load all messages", messages => messages.forEach(appendMessage));
+
+                messageButton.addEventListener("click", () => {
+                        socket.emit("send message", messageInput.value);
+                        messageInput.value = "";
+                        return false;
+                });
+
+                socket.on("load one message", appendMessage);
+        });
+    </script>
+</head>
+<body>
+    <h1>リアルタイムチャット</h1>
+    <ul id="messages"></ul>
+    <input type="text" id="message-input" placeholder="メッセージを入力">
+    <button id="send-message">送信</button>
+</body>
+</html>
